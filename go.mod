@@ -3,11 +3,11 @@ module github.com/errata-ai/vale/v3
 go 1.23.2
 
 require (
-	github.com/Masterminds/sprig/v3 v3.2.3
-	github.com/adrg/strutil v0.3.0
-	github.com/adrg/xdg v0.4.0
-	github.com/bmatcuk/doublestar/v4 v4.6.0
-	github.com/d5/tengo/v2 v2.10.0
+	github.com/Masterminds/sprig/v3 v3.3.0
+	github.com/adrg/strutil v0.3.1
+	github.com/adrg/xdg v0.5.3
+	github.com/bmatcuk/doublestar/v4 v4.7.1
+	github.com/d5/tengo/v2 v2.17.0
 	github.com/errata-ai/ini v1.63.0
 	github.com/errata-ai/regexp2 v1.7.0
 	github.com/expr-lang/expr v1.16.9
@@ -21,17 +21,18 @@ require (
 	github.com/otiai10/copy v1.14.0
 	github.com/pterm/pterm v0.12.40
 	github.com/remeh/sizedwaitgroup v1.0.0
-	github.com/smacker/go-tree-sitter v0.0.0-20240514083259-c5d1f3f5f99e
+	github.com/smacker/go-tree-sitter v0.0.0-20240827094217-dd81d9e9be82
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.9.0
-	github.com/yuin/goldmark v1.5.6
-	golang.org/x/exp v0.0.0-20231006140011-7918f672742d
-	golang.org/x/net v0.23.0
+	github.com/stretchr/testify v1.10.0
+	github.com/yuin/goldmark v1.7.8
+	golang.org/x/exp v0.0.0-20241210194714-1829a127f884
+	golang.org/x/net v0.32.0
 	golang.org/x/sys v0.28.0
-	gopkg.in/yaml.v2 v2.3.0
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
+	dario.cat/mergo v1.0.1 // indirect
 	github.com/MarvinJWendt/testza v0.4.2 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.3.1 // indirect
@@ -40,7 +41,6 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gookit/color v1.5.4 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
-	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
