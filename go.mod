@@ -3,11 +3,11 @@ module github.com/errata-ai/vale/v3
 go 1.23.2
 
 require (
-	github.com/Masterminds/sprig/v3 v3.3.0
-	github.com/adrg/strutil v0.3.1
-	github.com/adrg/xdg v0.5.3
-	github.com/bmatcuk/doublestar/v4 v4.7.1
-	github.com/d5/tengo/v2 v2.17.0
+	github.com/Masterminds/sprig/v3 v3.2.3
+	github.com/adrg/strutil v0.3.0
+	github.com/adrg/xdg v0.4.0
+	github.com/bmatcuk/doublestar/v4 v4.6.0
+	github.com/d5/tengo/v2 v2.10.0
 	github.com/errata-ai/ini v1.63.0
 	github.com/errata-ai/regexp2 v1.7.0
 	github.com/expr-lang/expr v1.16.9
@@ -32,7 +32,6 @@ require (
 )
 
 require (
-	dario.cat/mergo v1.0.1 // indirect
 	github.com/MarvinJWendt/testza v0.4.2 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.3.1 // indirect
@@ -41,6 +40,7 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gookit/color v1.5.4 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
+	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
