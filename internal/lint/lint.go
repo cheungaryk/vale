@@ -25,6 +25,7 @@ type Linter struct {
 	client    *http.Client
 	HasDir    bool
 	nonGlobal bool
+	metaScope string
 }
 
 type lintResult struct {
@@ -67,6 +68,18 @@ func (l *Linter) Transform(f *core.File) (string, error) {
 func (l *Linter) LintString(src string) ([]*core.File, error) {
 	linted := l.lintFile(src)
 	return []*core.File{linted.file}, linted.err
+}
+
+// SetMetaScope sets an optional meta scope.
+//
+// A meta scope is a string that is appended to the end of each check's scope
+// providing extra context for the check.
+func (l *Linter) SetMetaScope(scope string) {
+	if scope != "" {
+		l.metaScope = "." + scope
+	} else {
+		l.metaScope = ""
+	}
 }
 
 // Lint src according to its format.
@@ -190,6 +203,10 @@ func (l *Linter) lintFile(src string) lintResult {
 	file.NLP = l.Manager.AssignNLP(file)
 	simple := l.Manager.Config.Flags.Simple
 
+	// NOTE: This is a sanity check to ensure that we don't run any checks that
+	// we actually have a blueprint to apply.
+	hasBlueprints := len(l.Manager.Config.Blueprints) > 0
+
 	if file.Format == "markup" && !simple { //nolint:gocritic
 		switch file.NormedExt {
 		case ".adoc":
@@ -207,6 +224,8 @@ func (l *Linter) lintFile(src string) lintResult {
 		case ".org":
 			err = l.lintOrg(file)
 		}
+	} else if file.Format == "data" && !simple && hasBlueprints {
+		err = l.lintData(file)
 	} else if file.Format == "code" && !simple {
 		err = l.lintCode(file)
 	} else if file.Format == "fragment" && !simple {
@@ -255,12 +274,12 @@ func (l *Linter) lintProse(f *core.File, blk nlp.Block, lines int) error {
 }
 
 func (l *Linter) lintTxt(f *core.File) error {
-	block := nlp.NewBlock("", f.Content, "text"+f.RealExt)
+	block := nlp.NewBlock("", f.Content, "text"+l.metaScope+f.RealExt)
 	return l.lintProse(f, block, len(f.Lines))
 }
 
 func (l *Linter) lintLines(f *core.File) error {
-	block := nlp.NewBlock("", f.Content, "text"+f.RealExt)
+	block := nlp.NewBlock("", f.Content, "text"+l.metaScope+f.RealExt)
 	return l.lintBlock(f, block, len(f.Lines), 0, true)
 }
 
@@ -343,16 +362,16 @@ func (l *Linter) setup() error {
 
 func (l *Linter) teardown() error {
 	for _, pid := range l.pids {
-		if p, err := os.FindProcess(pid); err == nil {
-			if err := p.Kill(); err != nil {
-				return err
+		if p := core.FindProcess(pid); p != nil {
+			if procErr := p.Kill(); procErr != nil {
+				return procErr
 			}
 		}
 	}
 
 	for _, f := range l.temps {
-		if err := os.Remove(f.Name()); err != nil {
-			return err
+		if ferr := os.Remove(f.Name()); ferr != nil {
+			return ferr
 		}
 	}
 
